@@ -7,7 +7,7 @@ public class PilhaMain {
 
         System.out.println("Teste de pilha com limite negativo: " + teste.testeLimiteNegativo());
         System.out.println("Teste de pilha com limite zerado: " + teste.testeLimiteZerado());
-        System.out.println("Teste de pilha com pop do Ãºltimo valor: " + teste.testeRetiraUltimoValor());
-        System.out.println("Teste de pilha de nÃ£o adicionar alÃ©m do limite: " + teste.testeNaoAdicionaAlemDoLimite());
+        System.out.println("Teste de pilha com pop do último valor: " + teste.testeRetiraUltimoValor());
+        System.out.println("Teste de pilha de não adicionar além do limite: " + teste.testeNaoAdicionaAlemDoLimite());
     }
 }

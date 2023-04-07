@@ -11,10 +11,10 @@ public class RetanguloTeste {
         final int RESULTADO_ENCONTADO = retangulo.calcularArea();
 
         if (RESULTADO_ESPERADO == RESULTADO_ENCONTADO) {
-            System.out.println("Calculo da Ã¡rea do retÃ¢ngulo CORRETO!");
+            System.out.println("Cálculo da área do retângulo CORRETO!");
         }
         else {
-            System.err.println("Calculo da Ã¡rea do retÃ¢ngulo INCORRETO!");
+            System.err.println("Cálculo da área do retângulo INCORRETO!");
         }
     }
 
@@ -25,10 +25,10 @@ public class RetanguloTeste {
         final int RESULTADO_ENCONTADO = retangulo.calcularPerimetro();
 
         if (RESULTADO_ESPERADO == RESULTADO_ENCONTADO) {
-            System.out.println("Calculo do perÃ­metro do retÃ¢ngulo CORRETO!");
+            System.out.println("Cálculo do perímetro do retângulo CORRETO!");
         }
         else {
-            System.err.println("Calculo do perÃ­metro do retÃ¢ngulo INCORRETO!");
+            System.err.println("Cálculo do perímetro do retângulo INCORRETO!");
         }
     }
 }

@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @DisplayName("Calculadora")
 class CalculadoraTeste {
 
-    @Test @DisplayName("NÃ£o somar por ausÃªncia ser null.")
+    @Test @DisplayName("Não somar por ausência ser null.")
     void somarNull() {
         assertThrows(IllegalArgumentException.class, () -> Calculadora.somar(null));
     }
