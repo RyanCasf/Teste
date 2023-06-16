@@ -1,8 +1,6 @@
 package br.com.HjUnit.locadora;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -26,52 +24,52 @@ class LocacaoServiceTeste {
 		service = new LocacaoService();
 	}
 	
-	@Test @DisplayName("Alugar filme com usuário e filme nulos.")
-	void alugarFilmeUsuarioNuloEFilmeNulo() {
+	@Test
+	void alugarFilmeLancarNullPointerExceptionPorParametrosNulo() {
 		assertThrows(NullPointerException.class, () -> service.alugarFilme(null, null));
 	}
 	
-	@Test @DisplayName("Alugar filme com usuário nulo.")
-	void alugarFilmeUsuarioNulo() {
+	@Test
+	void alugarFilmeLancarNullPointerExceptionPorUsuarioNulo() {
 		assertThrows(NullPointerException.class, () -> service.alugarFilme(null, new ArrayList<Filme>()));
 	}
 	
-	@Test @DisplayName("Alugar filme com filme nulo.")
-	void alugarFilmeNulo() {
+	@Test
+	void alugarFilmeLancarNullPointerExceptionPorFilmesNulo() {
 		assertThrows(NullPointerException.class, () -> service.alugarFilme(new Usuario(), null));
 	}
 	
-	@Test @DisplayName("Alugar filme com filme vazio.")
-	void alugarFilmeVazio() {
+	@Test
+	void alugarFilmeLancarNullPointerExceptionPorFilmesVazio() {
 		List<Filme> filmes = new ArrayList<Filme>();
 		assertThrows(NullPointerException.class, () -> service.alugarFilme(new Usuario(), filmes));
 	}
 	
-	@Test @DisplayName("Alugar filme com estoque nulo.")
-	void alucarFilmeEstoqueNulo() {
+	@Test
+	void alugarFilmeLancarValidacaoExceptionPorEstoqueFilmeNulo() {
 		Usuario usuario = new Usuario();
 		List<Filme> filmes = List.of(new Filme());
 		
 		assertThrows(ValidacaoException.class, () -> service.alugarFilme(usuario, filmes));
 	}
 	
-	@Test @DisplayName("Alugar filme com estoque zerado.")
-	void alucarFilmeEstoqueZerado() {
+	@Test
+	void alugarFilmeLancarValidacaoExceptionPorEstoqueFilmeZerado() {
 		Usuario usuario = new Usuario();
 		List<Filme> filmes = List.of(new Filme("Filme A", 0, null));
 		
 		assertThrows(ValidacaoException.class, () -> service.alugarFilme(usuario, filmes));
 	}
 	
-	@Test @DisplayName("Alugar filme com estoques zerados.")
-	void alucarFilmeEstoquesZerados() {
+	@Test
+	void alugarFilmeLancarValidacaoExceptionPorEstoqueFilmesZerado() {
 		Usuario usuario = new Usuario();
 		List<Filme> filmes = List.of(new Filme("Filme A", 0, null), new Filme("Filme A", null, null), new Filme("Filme A", 0, null));
 		
 		assertThrows(ValidacaoException.class, () -> service.alugarFilme(usuario, filmes));
 	}
 	
-	@Test @DisplayName("Alugar filme verificar data do retorno add 1.")
+	@Test
 	void alucarFilmeVerificarDataRetornoMaisUm() {
 		Usuario usuario = new Usuario();
 		List<Filme> filmes = List.of(new Filme("Filme A", 1, null));
@@ -81,7 +79,7 @@ class LocacaoServiceTeste {
 		assertTrue(LocalDate.now().plusDays(1).isEqual(locacao.getDataRetorno()));
 	}
 	
-	@Test @DisplayName("Alugar filme com sucesso.")
+	@Test
 	void alucarFilmeComSucesso() {
 		Usuario usuario = new Usuario("usuario");
 		List<Filme> filmes = List.of(new Filme("Filme A", 1, BigDecimal.ONE));
