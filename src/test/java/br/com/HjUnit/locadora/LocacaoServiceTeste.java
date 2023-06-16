@@ -1,8 +1,8 @@
 package br.com.HjUnit.locadora;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -24,47 +24,57 @@ class LocacaoServiceTeste {
 		service = new LocacaoService();
 	}
 	
+	@Test @DisplayName("Alugar filme com usuário e filme nulos.")
+	void alugarFilmeUsuarioNuloEFilmeNulo() {
+		assertThrows(NullPointerException.class, () -> service.alugarFilme(null, null));
+	}
+	
 	@Test @DisplayName("Alugar filme com usuário nulo.")
 	void alugarFilmeUsuarioNulo() {
-		Locacao encontrado = service.alugarFilme(null, new Filme());
-		assertNull(encontrado.getUsuario());
+		assertThrows(NullPointerException.class, () -> service.alugarFilme(null, new Filme()));
 	}
 	
 	@Test @DisplayName("Alugar filme com filme nulo.")
 	void alugarFilmeNulo() {
-		Locacao encontrado = service.alugarFilme(new Usuario(), null);
-		assertNull(encontrado.getFilme());
-		assertNull(encontrado.getValor());
+		assertThrows(NullPointerException.class, () -> service.alugarFilme(new Usuario(), null));
 	}
 	
-	@Test @DisplayName("Alugar filme com usuário e filme nulos.")
-	void alugarFilmeUsuarioNuloEFilmeNulo() {
-		Locacao encontrado = service.alugarFilme(null, null);
-		assertNull(encontrado.getUsuario());
-		assertNull(encontrado.getFilme());
-		assertNull(encontrado.getValor());
-	}
-	
-	@Test @DisplayName("Alugar filme validar data atual em locação.")
-	void alugarFilmeDataLocacaoAtual() {
-		Locacao encontrado = service.alugarFilme(null, null);
-		assertEquals(0, LocalDate.now().compareTo(encontrado.getDataLocacao()));
-	}
-	
-	@Test @DisplayName("Alugar filme validar data retorno para +1.")
-	void alugarFilmeDataRetorno() {
-		Locacao encontrado = service.alugarFilme(null, null);
-		assertEquals(0, LocalDate.now().plusDays(1).compareTo(encontrado.getDataRetorno()));
-	}
-	
-	@Test @DisplayName("Alugar filme.")
-	void alugarFilme() {
+	@Test @DisplayName("Alugar filme com estoque nulo.")
+	void alucarFilmeEstoqueNulo() {
+		Usuario usuario = new Usuario();
 		Filme filme = new Filme();
-		filme.setPrecoLocacao(BigDecimal.TEN);
 		
-		Locacao encontrado = service.alugarFilme(new Usuario(), filme);
-		assertNotNull(encontrado.getUsuario());
-		assertNotNull(encontrado.getFilme());
-		assertEquals(0, encontrado.getValor().compareTo(BigDecimal.TEN));
+		assertThrows(ValidacaoException.class, () -> service.alugarFilme(usuario, filme));
+	}
+	
+	@Test @DisplayName("Alugar filme com estoque zerado.")
+	void alucarFilmeEstoqueZerado() {
+		Usuario usuario = new Usuario();
+		Filme filme = new Filme("Filme A", 0, null);
+		
+		assertThrows(ValidacaoException.class, () -> service.alugarFilme(usuario, filme));
+	}
+	
+	@Test @DisplayName("Alugar filme verificar data do retorno add 1.")
+	void alucarFilmeVerificarDataRetornoMaisUm() {
+		Usuario usuario = new Usuario();
+		Filme filme = new Filme("Filme A", 1, null);
+		
+		Locacao locacao = service.alugarFilme(usuario, filme);
+		
+		assertTrue(LocalDate.now().plusDays(1).isEqual(locacao.getDataRetorno()));
+	}
+	
+	@Test @DisplayName("Alugar filme com sucesso.")
+	void alucarFilmeComSucesso() {
+		Usuario usuario = new Usuario("usuario");
+		Filme filme = new Filme("Filme A", 1, BigDecimal.ONE);
+		
+		Locacao locacao = service.alugarFilme(usuario, filme);
+		
+		assertEquals("usuario", locacao.getUsuario().getNome());
+		assertEquals("Filme A", locacao.getFilme().getNome());
+		assertTrue(LocalDate.now().isEqual(locacao.getDataLocacao()));
+		assertEquals(0, BigDecimal.ONE.compareTo(locacao.getValor()));
 	}
 }
