@@ -2,13 +2,14 @@ package br.com.HjUnit.locadora;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 public class Locacao {
 	
 	private LocalDate dataLocacao;
 	private LocalDate dataRetorno;
 	private BigDecimal valor;
-	private Filme filme;
+	private List<Filme> filmes;
 	private Usuario usuario;
 	
 	public void setDataLocacao(LocalDate dataLocacao) {
@@ -23,8 +24,8 @@ public class Locacao {
 		this.valor = valor;
 	}
 	
-	public void setFilme(Filme filme) {
-		this.filme = filme;
+	public void setFilmes(List<Filme> filmes) {
+		this.filmes = filmes;
 	}
 	
 	public void setUsuario(Usuario usuario) {
@@ -39,8 +40,8 @@ public class Locacao {
 		return usuario;
 	}
 	
-	public Filme getFilme() {
-		return filme;
+	public List<Filme> getFilmes() {
+		return filmes;
 	}
 	
 	public BigDecimal getValor() {
