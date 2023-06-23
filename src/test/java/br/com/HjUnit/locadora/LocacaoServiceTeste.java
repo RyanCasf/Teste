@@ -70,7 +70,7 @@ class LocacaoServiceTeste {
 	}
 	
 	@Test
-	void alucarFilmeVerificarDataRetornoMaisUm() {
+	void alugarFilmeVerificarDataRetornoMaisUm() {
 		Usuario usuario = new Usuario();
 		List<Filme> filmes = List.of(new Filme("Filme A", 1, null));
 		
@@ -80,7 +80,12 @@ class LocacaoServiceTeste {
 	}
 	
 	@Test
-	void alucarFilmeComSucesso() {
+	void deveAlugarFilmeCom75PorcentoDeDescontoParaTerceiroFilme() {
+		fail();
+	}
+	
+	@Test
+	void alugarFilmeComSucesso() {
 		Usuario usuario = new Usuario("usuario");
 		List<Filme> filmes = List.of(new Filme("Filme A", 1, BigDecimal.ONE));
 		
