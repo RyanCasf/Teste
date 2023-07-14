@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -80,8 +81,65 @@ class LocacaoServiceTeste {
 	}
 	
 	@Test
-	void deveAlugarFilmeCom75PorcentoDeDescontoParaTerceiroFilme() {
-		fail();
+	void deveAlugarFilmeCom25PorcentoDeDescontoParaTerceiroFilme() {
+		Usuario usuario = new Usuario("Usuario1");
+		List<Filme> filmes = Arrays.asList(
+				new Filme("1", 2, BigDecimal.valueOf(4.0d)),
+				new Filme("2", 2, BigDecimal.valueOf(4.0d)),
+				new Filme("3", 2, BigDecimal.valueOf(4.0d))
+		);
+		
+		Locacao locacao = service.alugarFilme(usuario, filmes);
+		
+		assertEquals(0, locacao.getValor().compareTo(BigDecimal.valueOf(11)));
+	}
+	
+	@Test
+	void deveAlugarFilme50PorcentoDeDescontoParaQuartoFilme() {
+		Usuario usuario = new Usuario("Usuario1");
+		List<Filme> filmes = Arrays.asList(
+				new Filme("1", 2, BigDecimal.valueOf(4.0d)),
+				new Filme("2", 2, BigDecimal.valueOf(4.0d)),
+				new Filme("3", 2, BigDecimal.valueOf(4.0d)),
+				new Filme("4", 2, BigDecimal.valueOf(4.0d))
+		);
+		
+		Locacao locacao = service.alugarFilme(usuario, filmes);
+		
+		assertEquals(0, locacao.getValor().compareTo(BigDecimal.valueOf(13)));
+	}
+	
+	@Test
+	void deveAlugarFilme75PorcentoDeDescontoParaQuintoFilme() {
+		Usuario usuario = new Usuario("Usuario1");
+		List<Filme> filmes = Arrays.asList(
+				new Filme("1", 2, BigDecimal.valueOf(4.0d)),
+				new Filme("2", 2, BigDecimal.valueOf(4.0d)),
+				new Filme("3", 2, BigDecimal.valueOf(4.0d)),
+				new Filme("4", 2, BigDecimal.valueOf(4.0d)),
+				new Filme("5", 2, BigDecimal.valueOf(4.0d))
+		);
+		
+		Locacao locacao = service.alugarFilme(usuario, filmes);
+		
+		assertEquals(0, locacao.getValor().compareTo(BigDecimal.valueOf(14)));
+	}
+	
+	@Test
+	void deveAlugarFilme100PorcentoDeDescontoParaSextoFilme() {
+		Usuario usuario = new Usuario("Usuario1");
+		List<Filme> filmes = Arrays.asList(
+				new Filme("1", 2, BigDecimal.valueOf(4.0d)),
+				new Filme("2", 2, BigDecimal.valueOf(4.0d)),
+				new Filme("3", 2, BigDecimal.valueOf(4.0d)),
+				new Filme("4", 2, BigDecimal.valueOf(4.0d)),
+				new Filme("5", 2, BigDecimal.valueOf(4.0d)),
+				new Filme("6", 2, BigDecimal.valueOf(4.0d))
+		);
+		
+		Locacao locacao = service.alugarFilme(usuario, filmes);
+		
+		assertEquals(0, locacao.getValor().compareTo(BigDecimal.valueOf(14)));
 	}
 	
 	@Test

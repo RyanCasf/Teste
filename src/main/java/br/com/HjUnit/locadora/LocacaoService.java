@@ -22,8 +22,19 @@ public class LocacaoService {
 			throw new ValidacaoException("Filmes sem estoque");
 		
 		BigDecimal valorFilmes = BigDecimal.ZERO;
-		for (Filme filme : filmes) {
-			BigDecimal valorFilme = filme.getPrecoLocacao() != null ? filme.getPrecoLocacao() : BigDecimal.ZERO;
+		final int QUANTIDADE_FILMES = filmes.size();
+		
+		for (int i=0; i<QUANTIDADE_FILMES; i++) {
+			BigDecimal valorFilme = filmes.get(i).getPrecoLocacao() != null ? filmes.get(i).getPrecoLocacao() : BigDecimal.ZERO;
+			
+			switch (i) {
+				case 2: valorFilme = valorFilme.multiply(BigDecimal.valueOf(0.75)); break;
+				case 3: valorFilme = valorFilme.multiply(BigDecimal.valueOf(0.50)); break;
+				case 4: valorFilme = valorFilme.multiply(BigDecimal.valueOf(0.25)); break;
+				case 5: continue;
+				default:
+			}
+			
 			valorFilmes = valorFilmes.add(valorFilme);
 		}
 		
