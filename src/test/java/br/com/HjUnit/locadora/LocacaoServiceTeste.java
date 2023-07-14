@@ -3,11 +3,13 @@ package br.com.HjUnit.locadora;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.math.BigDecimal;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -140,6 +142,19 @@ class LocacaoServiceTeste {
 		Locacao locacao = service.alugarFilme(usuario, filmes);
 		
 		assertEquals(0, locacao.getValor().compareTo(BigDecimal.valueOf(14)));
+	}
+	
+	@Test
+	void pularDataDeDevolucaoNoDomingo() {
+		LocalDate dataAtual = LocalDate.now();
+		Assumptions.assumeTrue(dataAtual.getDayOfWeek().equals(DayOfWeek.SATURDAY));
+		
+		Usuario usuario = new Usuario("Usuario1");
+		List<Filme> filmes = Arrays.asList(new Filme("0", 1, BigDecimal.valueOf(5.0d)));
+		
+		Locacao locacao = service.alugarFilme(usuario, filmes);
+		
+		assertEquals(DayOfWeek.MONDAY, locacao.getDataRetorno().getDayOfWeek());
 	}
 	
 	@Test

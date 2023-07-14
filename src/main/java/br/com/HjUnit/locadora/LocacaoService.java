@@ -1,6 +1,7 @@
 package br.com.HjUnit.locadora;
 
 import java.math.BigDecimal;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -39,13 +40,13 @@ public class LocacaoService {
 		}
 		
 		Locacao locacao = new Locacao();
-		final int QUANTIDADE_DIAS_PARA_RETORNO = 1;
-		
 		locacao.setUsuario(usuario);
 		locacao.setFilmes(filmes);
 		locacao.setDataLocacao(LocalDate.now());
 		locacao.setValor(valorFilmes);
-		locacao.setDataRetorno(locacao.getDataLocacao().plusDays(QUANTIDADE_DIAS_PARA_RETORNO));
+		
+		locacao.setDataRetorno(locacao.getDataLocacao().plusDays(
+				Locacao.getQuantidadeDiasParaRetorno(locacao.getDataLocacao().getDayOfWeek())));
 		
 		return locacao;
 	}
