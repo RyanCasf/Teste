@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Assumptions;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -22,7 +22,7 @@ class LocacaoServiceTeste {
 	
 	private LocacaoService service;
 	
-	@BeforeEach
+	@BeforeAll
 	void novo() {
 		service = new LocacaoService();
 	}
